@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateMovieRequest;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
@@ -33,15 +34,17 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateMovieRequest $request)
     {
+        $validated = $request->validated();
+
         return Movie::create([
-            'title' => $request['title'],
-            'director' => $request['director'],
-            'imgUrl' => $request['imgUrl'],
-            'duration' => $request['duration'],
-            'releaseDate' => $request['releaseDate'],
-            'genre' => $request['genre'],
+            'title' => $validated['title'],
+            'director' => $validated['director'],
+            'imgUrl' => $validated['imgUrl'],
+            'duration' => $validated['duration'],
+            'releaseDate' => $validated['releaseDate'],
+            'genre' => $validated['genre'],
 
         ]);
     }
@@ -75,15 +78,17 @@ class MovieController extends Controller
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateMovieRequest $request, $id)
     {
+        $validated = $request->validated();
+
         return Movie::where('id', $id)->update([
-            'title' => $request['title'],
-            'director' => $request['director'],
-            'imgUrl' => $request['imgUrl'],
-            'duration' => $request['duration'],
-            'releaseDate' => $request['releaseDate'],
-            'genre' => $request['genre'],
+            'title' => $validated['title'],
+            'director' => $validated['director'],
+            'imgUrl' => $validated['imgUrl'],
+            'duration' => $validated['duration'],
+            'releaseDate' => $validated['releaseDate'],
+            'genre' => $validated['genre'],
         ]);
     }
 
