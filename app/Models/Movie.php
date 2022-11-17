@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'title',
         'director',
@@ -15,5 +16,9 @@ class Movie extends Model
         'releaseDate',
         'genre',
     ];
-    use HasFactory;
+
+    public function scopeSearch($query, $title)
+    {
+        return $query->where('title', 'LIKE', '%' . $title . '%');
+    }
 }
